@@ -1,17 +1,16 @@
 'use strict'
 
-const wetherMap = new Map([
+let wetherMap = new Map([
   ['London', 10],
   ['Moscow', 7],
   ['Paris', 14],
 ]);
 
-for (const [key, value] of wetherMap) {
-  console.log('key:' + key)
-  console.log('value:' + value)
-}
+//мое решение
+// const wetherArr = [...wetherMap]
+// const newWetherArr = wetherArr.map(([city, tm]) => [tm, city])
+// const newWetherMap = new Map(newWetherArr)
 
-//конвертация в массив
-console.log([...wetherMap]);
-console.log([...wetherMap.keys()]);
-console.log([...wetherMap.values()]);
+
+wetherMap = new Map([...wetherMap].map(el => el.reverse()))
+console.log(wetherMap);
