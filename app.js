@@ -1,18 +1,17 @@
 'use strict'
 
 const wetherMap = new Map([
-  ['London', '10'],
-  ['Moscow', '7']
+  ['London', 10],
+  ['Moscow', 7],
+  ['Paris', 14],
 ]);
-console.log(wetherMap);
 
-const obj = {
-  london: 10,
-  moscow: 7,
-  paris: 14,
+for (const [key, value] of wetherMap) {
+  console.log('key:' + key)
+  console.log('value:' + value)
 }
 
-console.log(Object.entries(obj));
-
-const wetherMap2 = new Map(Object.entries(obj))
-console.log(wetherMap2);
+//конвертация в массив
+console.log([...wetherMap]);
+console.log([...wetherMap.keys()]);
+console.log([...wetherMap.values()]);
