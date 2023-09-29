@@ -1,23 +1,14 @@
 'use strict'
 
-// расчиать квадратный корень
-console.log(Math.sqrt(36)) // 6
-// кубический корень
-console.log(Math.cbrt(27)) // 3
-// корень в любой степени
-console.log(16 ** (1 / 4));
+/*
+Написать ф-цию, которая принимает min и max и возвращает 
+случайное число между ними, включая их
+*/
 
-console.log(Math.sign(-100)) // -1
-console.log(Math.sign(500)) // 1
-console.log(Math.abs(-100))
+function randomInt(min, max) {
+  min = Math.ceil(min) // до ближ большего целого
+  max = Math.floor(max) // округление до ближ меньшего целого
+  return Math.floor(Math.random() * (max - min + 1)) + min //
+}
 
-// Что вы будете испл
-console.log(Math.max(1, -2, 10, 27)); //27
-console.log(Math.max(1, -2, 10, 27, 'j')); // NaN
-console.log(Math.min(1, -2, 10, 27)); // -2
-
-const arr = [1, -2, 10, 27]
-console.log(Math.max(...arr))
-
-console.log(Math.random())
-
+console.log(randomInt(1.09, 23.95))
