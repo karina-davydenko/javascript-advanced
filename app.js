@@ -1,70 +1,22 @@
 'use strict'
 
-/*
-Напишите ф-цию, которая принимает 3 параметра:
--Сумма
--Валюта исходная
--Валюта для конвертации
-Возвращает строку уже сконверованной суммы с постфиксом валюты либо null.
-*/
+const now = new Date();
+console.log(now);
 
-// мое решение
-// const convertFunction = (sum, initial, convert) => {
-//   const rulesConvert = {
-//     rub: {
-//       rub: { value: 1, currency: 'RUB' },
-//       usd: { value: 0.0103, currency: 'USD' },
-//       eur: { value: 0.097, currency: 'EUR' },
-//     },
-//     usd: {
-//       usd: { value: 1, currency: 'USD' },
-//       rub: { value: 97.4147, currency: 'RUB' },
-//       eur: { value: 0.9443, currency: 'EUR' },
-//     },
-//     eur: {
-//       eur: { value: 1, currency: 'EUR' },
-//       rub: { value: 103.1631, currency: 'RUB' },
-//       usd: { value: 1.059, currency: 'USD' },
-//     }
-//   }
+console.log(new Date('01/01/2022'));
+console.log(new Date('2022/01/02'));
+console.log(new Date('20 January 2023'));
+console.log('');
 
-//   if (!rulesConvert[initial] || !rulesConvert[initial][convert]) {
-//     return null
-//   }
+console.log(new Date(2024, 11, 31));
+console.log(new Date(2024, 1, 51 + 100));
+console.log(new Date(1 * 24 * 60 * 60 * 1000));
+console.log(Date.now());
 
-//   const currency = rulesConvert[initial][convert]['currency']
-//   const convertSum = sum * rulesConvert[initial][convert]['value']
-//   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency }).format(convertSum)
-// }
+console.log(now.getFullYear());
+console.log(now.getDay());
+console.log(now.getSeconds());
+console.log(now.getTime());
 
-// console.log(convertFunction(50, 'rub', 'usd'))
-// console.log(convertFunction(50, 'rub', 'rub'))
-// console.log(convertFunction(50, 'usd', 'eur'))
-// console.log(convertFunction(50, 'eur', 'rub'))
-// console.log(convertFunction(50, 'eur', 'ffeub'))
-// console.log(convertFunction(50, 'er', 'rub'))
-
-
-
-function convert(sum, initialCurrency, convertCurrency) {
-  const allCurrencies = [
-    { name: 'USD', mult: 1 },
-    { name: 'RUB', mult: 1 / 60 },
-    { name: 'EUR', mult: 1.1 },
-  ]
-
-  const initial = allCurrencies.find(c => c.name === initialCurrency)
-  if (!initial) {
-    return null
-  }
-  const convert = allCurrencies.find(c => c.name === convertCurrency)
-  if (!convert) {
-    return null
-  }
-
-  return new Intl
-    .NumberFormat('ru-RU', { style: 'currency', currency: convert.name })
-    .format(sum * initial.mult / convert.mult);
-
-}
+console.log(now.setFullYear(2030))
 
