@@ -1,13 +1,18 @@
 'use strict'
 
-const date1 = new Date(2024, 10, 15)
-const date2 = new Date(2024, 11, 15)
-console.log(Number(date1))
-console.log(Number(date2))
-console.log(date2 - date1)
+const first = new Date(2024, 10, 4)
+const second = new Date(2024, 10, 3)
 
-function getDaysBetweenDates(date1, date2) {
-  return (date2 - date1) / (1000 * 60 * 60 * 24);
-}
+console.log(first > second) // true
+console.log(first === second) // false
 
-console.log(getDaysBetweenDates(date1, date2));
+const first1 = new Date(2024, 10, 4)
+const second1 = new Date(2024, 10, 4)
+
+console.log(first1 > second1) // false
+console.log(first1 === second1) // false
+console.log(first1.getTime() === second1.getTime()) // true
+
+//Сравнивать даты вы можете просто если нужно ">= <=" (под собой конвертируются в таймстемп)
+// При сравнении на равно, всегда false (сравниваются ссылки на объекты).
+// Поэтому переводим в таймстемпы
