@@ -1,18 +1,23 @@
 'use strict'
 
-const first = new Date(2024, 10, 4)
-const second = new Date(2024, 10, 3)
+// Сделать ф-цию, кот. принимает пользователя и проверяет,
+// есть ли у него сегодня день рождение или нет
 
-console.log(first > second) // true
-console.log(first === second) // false
+const user1 = {
+  name: 'Vander',
+  birthday: '12/23/1992'
+}
+const user2 = {
+  name: 'Vindetas',
+  birthday: '09/30/2002'
+}
 
-const first1 = new Date(2024, 10, 4)
-const second1 = new Date(2024, 10, 4)
+function isBirthdayNow(user) {
+  const birthday = new Date(user.birthday)
+  const now = new Date()
+  return birthday.getDate() === now.getDate() && birthday.getMonth() === now.getMonth()
+}
 
-console.log(first1 > second1) // false
-console.log(first1 === second1) // false
-console.log(first1.getTime() === second1.getTime()) // true
+console.log(isBirthdayNow(user1))
+console.log(isBirthdayNow(user2))
 
-//Сравнивать даты вы можете просто если нужно ">= <=" (под собой конвертируются в таймстемп)
-// При сравнении на равно, всегда false (сравниваются ссылки на объекты).
-// Поэтому переводим в таймстемпы
