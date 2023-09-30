@@ -1,22 +1,13 @@
 'use strict'
 
-const now = new Date();
-console.log(now);
+const date1 = new Date(2024, 10, 15)
+const date2 = new Date(2024, 11, 15)
+console.log(Number(date1))
+console.log(Number(date2))
+console.log(date2 - date1)
 
-console.log(new Date('01/01/2022'));
-console.log(new Date('2022/01/02'));
-console.log(new Date('20 January 2023'));
-console.log('');
+function getDaysBetweenDates(date1, date2) {
+  return (date2 - date1) / (1000 * 60 * 60 * 24);
+}
 
-console.log(new Date(2024, 11, 31));
-console.log(new Date(2024, 1, 51 + 100));
-console.log(new Date(1 * 24 * 60 * 60 * 1000));
-console.log(Date.now());
-
-console.log(now.getFullYear());
-console.log(now.getDay());
-console.log(now.getSeconds());
-console.log(now.getTime());
-
-console.log(now.setFullYear(2030))
-
+console.log(getDaysBetweenDates(date1, date2));
