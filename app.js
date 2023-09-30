@@ -1,23 +1,24 @@
 'use strict'
 
-// Сделать ф-цию, кот. принимает пользователя и проверяет,
-// есть ли у него сегодня день рождение или нет
+const date = new Date()
+console.log(date);
+console.log(new Intl.DateTimeFormat('ru-RU').format(date));
 
-const user1 = {
-  name: 'Vander',
-  birthday: '12/23/1992'
+const options1 = {
+  hour: 'numeric',
+  minute: 'numeric',
 }
-const user2 = {
-  name: 'Vindetas',
-  birthday: '09/30/2002'
+console.log(new Intl.DateTimeFormat('ru-RU', options1).format(date));
+
+const options2 = {
+  hour: 'numeric',
+  minute: 'numeric',
+  month: 'long',
+  weekday: 'short',
+  year: '2-digit',
 }
+console.log(new Intl.DateTimeFormat('en-US', options2).format(date));
+console.log(new Intl.DateTimeFormat('ru-RU', options2).format(date));
 
-function isBirthdayNow(user) {
-  const birthday = new Date(user.birthday)
-  const now = new Date()
-  return birthday.getDate() === now.getDate() && birthday.getMonth() === now.getMonth()
-}
-
-console.log(isBirthdayNow(user1))
-console.log(isBirthdayNow(user2))
-
+console.log(navigator.language)
+console.log(new Intl.DateTimeFormat(navigator.language, options2).format(date));
