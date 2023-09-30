@@ -1,24 +1,21 @@
 'use strict'
 
-const date = new Date()
-console.log(date);
-console.log(new Intl.DateTimeFormat('ru-RU').format(date));
+// Таймеры это не сама фича JS, это опять тваки API, которой мы имеей доступ,
+// работая в браузере или в nodej.
+// При этом работа таймера связанна с тем, как работает EventLoop.
+// Нам нужны таймеры для того чтобы отложить выполнение какой-то операции.
 
-const options1 = {
-  hour: 'numeric',
-  minute: 'numeric',
-}
-console.log(new Intl.DateTimeFormat('ru-RU', options1).format(date));
 
-const options2 = {
-  hour: 'numeric',
-  minute: 'numeric',
-  month: 'long',
-  weekday: 'short',
-  year: '2-digit',
-}
-console.log(new Intl.DateTimeFormat('en-US', options2).format(date));
-console.log(new Intl.DateTimeFormat('ru-RU', options2).format(date));
+const bashTimer = setTimeout((message) => {
+  console.log(message)
+}, 2000, 'Bash!')
 
-console.log(navigator.language)
-console.log(new Intl.DateTimeFormat(navigator.language, options2).format(date));
+console.log(1)
+
+setTimeout(() => {
+  console.log(2)
+}, 2000)
+
+clearTimeout(bashTimer)
+
+console.log(3)
