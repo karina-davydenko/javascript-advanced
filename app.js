@@ -1,9 +1,14 @@
 'use strict'
 
-const mark1 = performance.now(); // число милисекунд с ачала запуска приложения
-
-setTimeout(() => {
-  const mark2 = performance.now()
-  console.log(mark2 - mark1)
+const interval = setInterval(() => {
+  console.log(new Date())
 }, 1000)
+
+const timer = setTimeout(() => {
+  clearInterval(interval)
+}, 5000)
+
+console.log(interval);
+console.log(timer)
+
 
