@@ -1,23 +1,36 @@
 'use strict'
 
-const User = function (email, password) {
-  this.email = email;
-  this.password = password + '!!';
+// Как работать с прототипами.
 
+const Book = function (title, author) {
+  this.title = title;
+  this.author = author;
+  this.isRead = false;
 }
 
-const user1 = new User('a@a.com', '123')
-console.log(user1)
-// Оператор new содержит несколько шагов, которые приводят к созданию класса User
-// во первыз созд пустой объект
-// во вторых вызывает ф-ция конструктор, this = пустому объекту
-// объект связывается с прототипом
-// после этого автоматически возвращается созданный объект
+Book.prototype.read = function () {
+  this.isRead = true
+}
+
+Book.prototype.cover = 'Paper'
+
+const lordOfTheRing = new Book('Lord of the Ring', 'Tolkien')
+console.log(lordOfTheRing) // Book {title: 'Lord of the Ring', author: 'Tolkien', isRead: false}
+lordOfTheRing.read()
+console.log(lordOfTheRing) // Book {title: 'Lord of the Ring', author: 'Tolkien', isRead: true}
+console.log(lordOfTheRing.cover) // Paper
+console.log(lordOfTheRing.hasOwnProperty('cover')) // false
+console.log(lordOfTheRing.hasOwnProperty('author')) // true
 
 
-const user2 = new User('a@a2.com', '120493')
-console.log(user2)
-console.log(user1 instanceof User) // true
+console.log(lordOfTheRing.__proto__) // {read: ƒ, constructor: ƒ}
+console.log(lordOfTheRing.__proto__ === Book.prototype) // true
+console.log(Book.prototype.isPrototypeOf(lordOfTheRing)) // true
+console.log(Book.prototype.isPrototypeOf(Book)) // false
 
-// Создание через new устрарело и исплз. не часто. Больше видим ES6Classes, которые облегчают работу.
-// По сути нужно понимать такой способ, но на практике его нет
+
+// желательно не трогать прототипы встроенных объектов
+// такое поведение меняет внутренее устройство массивов
+Array.prototype.first = function () { }
+const a = [5]
+a.first
