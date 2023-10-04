@@ -1,38 +1,62 @@
 'use strict'
 
-const Book = function (title, author) {
-  this.title = title;
-  this.author = author;
-  this.isRead = false;
-}
-Book.prototype.read = function () {
-  this.isRead = true;
-};
+const task = {
+  title: 'Tasl1',
+  dueTo: new Date('2023/01/01'),
 
-// По сути классы скрывают реализацию выше за удобным синтаксисом
-class BookClass {
-  constructor(title, author) {
+  isOverdue() {
+    return this.dueTo < new Date()
+  }
+
+}
+
+console.log(task.isOverdue())
+
+// get/set - возможноность использовать методы, при этом вызывая как свойства.
+
+const task1 = {
+  title: 'Task1',
+  dueTo: new Date('2023/01/01'),
+
+  get isOverdue() {
+    return this.dueTo < new Date()
+  },
+
+  set isOverdue(isOverdueTask) {
+    if (!isOverdueTask) {
+      this.dueTo = new Date()
+    }
+  }
+}
+
+// console.log(task1.isOverdue()) // TypeError
+console.log(task1.isOverdue) // true
+console.log(task1)
+task1.isOverdue = false
+console.log(task1)
+
+// Классы
+class Task {
+  constructor(title, dueDate) {
     this.title = title;
-    this.author = author;
+    this.dueDate = dueDate;
   }
 
-  isRead = false;
+  get isOverdue() {
+    return this.dueDate < new Date()
+  }
 
-  read() {
-    this.isRead = true;
+  set dueDate(date) {
+    // валидация на дату подействует и при создании объекта 
+    if (date < new Date()) {
+      return
+    }
+    // this.dueDate = date //рекурсивный вызов set привидет к переполнению стека
+    this._dueDate = date // использовать свойсто с нижним подчеркиванием
   }
 }
 
-const wdwwd = new BookClass('title', 'author')
-wdwwd.read()
-console.log(wdwwd)
-console.log(wdwwd instanceof BookClass)
-console.log(wdwwd.__proto__)
-
-/**
- * Особенности классов
- * 1) Классы не поднимаются вверх(хостинга не происходит) 
- *    Мы не можем испльзовать класс до его объявления.
- * 2) Классы как функции могут быть переданы и возвращены из функций
- * 3) Тело класса всегда исполняется в strict режиме
- */
+const newTask = new Task('Task2', new Date('2023/03/03'))
+console.log(newTask)
+newTask.dueDate = new Date('2024/03/03')
+console.log(newTask)
