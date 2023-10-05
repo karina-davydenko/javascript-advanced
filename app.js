@@ -1,47 +1,26 @@
 'use strict'
 
-/**
- * Реализовать класс пользователя, со свойствами
- * - логин
- * - пароль
- * Причем пароль при установке должен переворачиваться и в таком виде храниться
- * Пароль и логин после создания изменить нельзя. 
- * Так де у класса добавить методы.
- * - Смены пароля (передаем старый и новый пароль)
- * - Сверки пароля
- */
+// третий способ создания инстансов наследуемых от каких-то объектов
+// Понимания Object.create помогает разобраться в работе наследования в JS
 
-class User {
-  #login
-  #password
-  #reversePassword(password) {
-    return password.split('').reverse().join('');
-  }
-  constructor(login, password) {
-    this.#login = login;
-    this.#password = this.#reversePassword(password)
-  }
-  get login() {
-    return this.#login
-  }
-
-  changePassword(password, newPassword) {
-    if (this.checkPassword(password)) {
-      this.#password = this.#reversePassword(newPassword)
-      return true
-    }
-    return 'Неверный старый пароль'
-  }
-
-  checkPassword(password) {
-    return this.#reversePassword(password) === this.#password
+const User = {
+  log() {
+    console.log('Log')
   }
 }
 
-const user1 = new User('login', '12345');
-console.log(user1.login)
-console.log(user1.changePassword('123', '12323'))
-console.log(user1.changePassword('12345', '12323'))
-console.log(user1.changePassword('12345', 'ldkldk'))
-console.log(user1.checkPassword('12323'))
-console.log(user1.checkPassword('123wfw3'))
+// создаем новый объект и говорим что в его прототипе будет объект,
+//  который мы передаем в метод create
+// фактически у нас происходит наследование( в нашем случает от объекта выше)
+const user = Object.create(User)
+console.log(user)
+console.log(user.__proto__ === User) // true
+user.log() // Log
+
+// но на практике очень редко такое видим, потому что чтобы задать какие-то свойства надо
+user.email = 'a@a.com'
+user.password = '1234'
+
+// удлиняем цепочку прототипов
+const admin = Object.create(user)
+console.log(admin)
