@@ -1,41 +1,29 @@
 'use strict'
 
-Number.MAX_SAFE_INTEGER // статичное числовое свойство
-new Number()
+class Car {
 
-Array.from([0, 1, 2]) // статичный метод
-new Array()
-
-// с инициализацией теста
-class Test {
-  hello() {
-    console.log('hello')
+  constructor() {
+    // delete this.#vin // Error
+    // this.#test2 = 5 // Error (нельзя обратиться к приватному до объявления)
   }
-}
-const test = new Test()
-test.hello()
 
-// без  инициализации теста, используем static метод
-class Test1 {
-  static a = 1
+  #vin = 6; // приватное поле доступное только внутри класса
 
-  static hello1() {
-    console.log('hello1')
+  #changeVin() {
+    console.log('changed')
   }
+
+  test() {
+    // какая-то проверка
+    this.#changeVin()
+  }
+
+  static #field = 3; //
 
   static {
-    let b = 5;
-    this.a++
-    b++
+    this.#field = 5
   }
 }
-Test1.hello1()
-console.log(Test1.a)
 
-
-// Под капотом
-const Test2 = function () { }
-Test2.hello2 = function () {
-  console.log('hello2')
-}
-Test2.hello2()
+const car = new Car()
+car.test();
