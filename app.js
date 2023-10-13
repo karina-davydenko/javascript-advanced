@@ -6,22 +6,24 @@ class Book {
     this.author = author
   }
 
-  buy() {
-    console.log('Buy')
+  info() {
+    console.log(`${this.title} - ${this.author}`)
   }
 }
 
-class AudioBook extends Book {
-  constructor(title, author, lenMin) {
+const book1 = new Book('Title1', 'Author1')
+book1.info()
+
+class EBook extends Book {
+  constructor(title, author, pages) {
     super(title, author)
-    this.lenMin = lenMin
+    this.pages = pages
   }
 
-  log() {
-    console.log(`${this.title} - ${this.lenMin}`)
+  info() {
+    console.log(`${this.title} - ${this.author} - ${this.pages}`)
   }
 }
 
-const book = new AudioBook('Lord Of The Rings', 'Tolkiet', 60 * 20)
-book.log()
-book.buy()
+const book2 = new EBook('Title2', 'Author2', 100)
+book2.info()
