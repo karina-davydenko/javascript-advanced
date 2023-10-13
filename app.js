@@ -1,52 +1,27 @@
 'use strict'
 
-// Абстракция VC Инкапсуляция
-/**
- * Какими свойствами обладает фильм
- * - Название
- * - Режисер
- * - Рейтинг
- * - Длительность
- * - Страна производства
- * - Актерский состав
- * - Трейлер
- * ...
- */
-
-// Когда мы проектируем наше приложение, мы должны понять,
-//  что из нашего объекта мы дествительно будем использовать.
-// Потому что у фильма миллион различных характеристик
-// Поэтому в качестве абстракции нам нужно понять. что объект который мы будем проектировать - 
-// отличается от реального объекта
-// Не нужно оверинжинерить
-
-// Когда мы выдкляем наборы свойств - мы делаем абстракцию над реальныи объектом
-// Инкапсуляция - заключение каких-т свойств внутри нашего класса
-//   без возможности доступа к ним снаружи
-class Film {
-  #name;
-  #author;
-  rating;
-  #length;
-
-  constructor(name, author, length) {
-    this.#name = name;
-    this.#author = author;
-    this.#length = length;
+class Book {
+  constructor(title, author) {
+    this.title = title
+    this.author = author
   }
 
-  get name() {
-    return this.#name
-  }
-
-  get author() {
-    return this.#author
-  }
-
-  get length() {
-    return this.#length
+  buy() {
+    console.log('Buy')
   }
 }
 
-const avatarFilm = new Film('Avatar', 'Cameron', '240')
-console.log(avatarFilm)
+class AudioBook extends Book {
+  constructor(title, author, lenMin) {
+    super(title, author)
+    this.lenMin = lenMin
+  }
+
+  log() {
+    console.log(`${this.title} - ${this.lenMin}`)
+  }
+}
+
+const book = new AudioBook('Lord Of The Rings', 'Tolkiet', 60 * 20)
+book.log()
+book.buy()
