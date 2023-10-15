@@ -1,57 +1,46 @@
 'use strict'
 /**
- * Принцип разделения итерфейса - класс не должен зависить от методов, которые
- * на практике ему никогда не нужны. Позволяет держать интерфейсы компактными
- * и разделять ответсвенность 
+ * Принцип инверсии зависимостей - мы должны зависить от абстракции, 
+ * а не от конкретных реализаций.
  */
 
-// // Неправильная реализация
-// class Weapom {
-//   strike() {}
-
-//   shoot() {}
-// }
-
-// class Rifle extends Weapom {
-//   strike() {
-//     // Неэффективно
-//   }
-
-//   shoot() {
-//     // Эффективно
-//   }
-// }
-
-// class Sword extends Weapom {
-//   strike() {
-//     // Эффективно
-//   }
-
-//   shoot() {
-//     // Не имеет смысла
-//   }
-// }
-
-// Правильная
-class Weapom {
-  // положить то что действительно нужно
-  cost;
-
-  dealDamage() {
-
+class DB {
+  save(items) {
+    console.log(`Saved: ${items}`)
   }
 }
 
-class Rifle extends Weapom {
-  shoot() {
-    // Эффективно
-    this.dealDamage()
+class MongoDB extends DB {
+  save(items) {
+    console.log(`Saved to Mongo: ${items}`)
   }
 }
 
-class Sword extends Weapom {
-  strike() {
-    // Эффективно
-    this.dealDamage()
+// Проблемма - ToDoList зависит от DB. Например чтобы перейти на MongoDB придется 
+// переписывать код
+// class ToDoList {
+//   items = []
+//   db = new DB(); !!!
+
+//   saveToDb() {
+//     this.db.save(this.items)
+//   }
+// }
+
+// Отвязка от БД. Зависимость только от передачи БД
+class ToDoList {
+  items = [1, 2, 3]
+
+  constructor(db) {
+    this.db = db;
+  }
+
+  saveToDb() {
+    this.db.save(this.items)
   }
 }
+
+const list1 = new ToDoList(new DB())
+list1.saveToDb()
+const list2 = new ToDoList(new MongoDB())
+list2.saveToDb()
