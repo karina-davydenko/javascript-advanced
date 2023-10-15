@@ -1,28 +1,57 @@
 'use strict'
 /**
- * Принцип подстановки Барбары Лисков - если мы сделали какой-то частный класс
- * от общего, то там где можно подстаить общий класс, мы можем заменить его на частный
+ * Принцип разделения итерфейса - класс не должен зависить от методов, которые
+ * на практике ему никогда не нужны. Позволяет держать интерфейсы компактными
+ * и разделять ответсвенность 
  */
 
-class User {
-  #role = 'user';
+// // Неправильная реализация
+// class Weapom {
+//   strike() {}
 
-  getRole() {
-    return this.#role
+//   shoot() {}
+// }
+
+// class Rifle extends Weapom {
+//   strike() {
+//     // Неэффективно
+//   }
+
+//   shoot() {
+//     // Эффективно
+//   }
+// }
+
+// class Sword extends Weapom {
+//   strike() {
+//     // Эффективно
+//   }
+
+//   shoot() {
+//     // Не имеет смысла
+//   }
+// }
+
+// Правильная
+class Weapom {
+  // положить то что действительно нужно
+  cost;
+
+  dealDamage() {
+
   }
 }
 
-class Admin extends User {
-  #role = ['user', 'admin']
-
-  getRole() {
-    return this.#role.join(', ')
+class Rifle extends Weapom {
+  shoot() {
+    // Эффективно
+    this.dealDamage()
   }
 }
 
-function logRole(user) {
-  console.log('Role: ' + user.getRole().toUpperCase())
+class Sword extends Weapom {
+  strike() {
+    // Эффективно
+    this.dealDamage()
+  }
 }
-
-logRole(new User())
-logRole(new Admin());
