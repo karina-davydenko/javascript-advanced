@@ -1,47 +1,36 @@
 'use strict'
 
-const arr = [1, 2, 3]
-// chaining методов 
-arr.map(a => a * 2).filter(a => a > 2).find(a => 100)
+// Принцип единой ответственности - наш класс должен делать что-то одно,
+// но хорошо!
 
-// Такой паттерн встречается и при испл классов
-// Особенно паттерн Builder
+class Charcter {
+  #inventory = []
+  #health = 10
 
-class Wallet {
-  balance = 0;
-
-  add(sum) {
-    this.balance += sum;
-    return this
+  pickItem(item) {
+    this.#inventory.push(item)
   }
 
-  remove(sum) {
-    this.balance -= sum;
-    return this
+  recieveDamage(damage) {
+    this.#health -= damage
   }
+
+  //  это не ответсвенность персонажа сохранение, надо рагпузить
+  // saveCharacter() {
+  //   localStorage.setItem('char', this)
+  // }
+
+  // loadCharacter() {
+  //   //...
+  // }
 }
 
-const wallet = new Wallet()
-const res = wallet.add(100).remove(10)
-console.log(res)
-
-class Builder {
-  house = {};
-
-  addRoof() {
-    this.house.roof = 'roof'
-    return this
+class DB {
+  save(item) {
+    localStorage.setItem('char', item)
   }
 
-  addFloor() {
-    this.house.floor = 'floor'
-    return this
-  }
-
-  execute() {
-    return this.house
+  load() {
+    //...
   }
 }
-
-const house = new Builder().addFloor().addRoof().execute()
-console.log(house)
