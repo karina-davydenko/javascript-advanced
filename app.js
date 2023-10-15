@@ -1,18 +1,47 @@
 'use strict'
-/**
- * Виды полиморфизма
- * - Ad-hock полиморфизм
- *    Возможность по разному исполнять функцию в зависимости от типа данных
- *    Пример:
- *    "2" + "4" (конкатенация)
- *    2 + 4 (сложение)
- * 
- * - Параметричский полиморфизм
- *    Когда мы можем выполнять одну и ту же функцию, но с разным типом аргументов
- *    Пример:
- *    console.log(1)
- *    console.log('str') и т.д.
- * 
- * Виды полиморфизма выше не совсем относятся к ООП. Чаще имеется в виду полиморфизм подтипов.
- * - Полиморфизм подтипов
- */
+
+const arr = [1, 2, 3]
+// chaining методов 
+arr.map(a => a * 2).filter(a => a > 2).find(a => 100)
+
+// Такой паттерн встречается и при испл классов
+// Особенно паттерн Builder
+
+class Wallet {
+  balance = 0;
+
+  add(sum) {
+    this.balance += sum;
+    return this
+  }
+
+  remove(sum) {
+    this.balance -= sum;
+    return this
+  }
+}
+
+const wallet = new Wallet()
+const res = wallet.add(100).remove(10)
+console.log(res)
+
+class Builder {
+  house = {};
+
+  addRoof() {
+    this.house.roof = 'roof'
+    return this
+  }
+
+  addFloor() {
+    this.house.floor = 'floor'
+    return this
+  }
+
+  execute() {
+    return this.house
+  }
+}
+
+const house = new Builder().addFloor().addRoof().execute()
+console.log(house)
