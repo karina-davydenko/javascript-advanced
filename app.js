@@ -1,23 +1,22 @@
 'use strict'
 
-function reqId(id) {
-  const request = new XMLHttpRequest();
-  request.open('GET', 'https://dummyjson.com/products/' + id);
-  request.send();
+/**
+ * Получить среднюю цену 30 товаров из API
+ * https://dummyjson.com/products
+ */
 
-  request.addEventListener('load', function () {
-    const data = JSON.parse(this.responseText)
-    console.log(data)
-  })
-}
+// создаем новый екземпляр XMLHttpRequest
+const req = new XMLHttpRequest()
+//сконфигурировать(не отправлять) url 
+req.open('GET', 'https://dummyjson.com/products')
+// отправляем запрос
+req.send()
 
-// Получение данных от последовательности вызовов не зависит, первый придет, который
-// легче
-reqId(2)
-reqId(3)
-reqId(1)
-reqId(4)
-reqId(7)
-reqId(1)
+req.addEventListener('load', function () {
+  const { products } = JSON.parse(this.responseText)
+  const sum = products.reduce((acc, product) => {
+    return acc += product.price
+  }, 0)
+  console.log(sum / products.length)
+})
 
-console.log('end') 
