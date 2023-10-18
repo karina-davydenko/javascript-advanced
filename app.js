@@ -1,15 +1,7 @@
 'use strict'
 
-/**
- * Фича ES6, которая спасает от колбеков. 
- * Promises - это контейнер для значения, которое вернется в будущем
- * Не нужно использовать callback(чейнинги или async/await)
- * Не нужно использовать события
- * 3 жизненных состояния 
- * - Pending (сразу после создания, т.к. север не может ответить сразу)
- * - Settled (сервер ответил и промис переход в состояния ниже)
- * - Fullfilled(выполнен) либо Rejected(отклонен)
- */
-
-const res = fetch('https://dummyjson.com/products/1')
-console.log(res)
+fetch('https://dummyjson.com/products/1')
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  })
