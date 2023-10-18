@@ -1,36 +1,15 @@
 'use strict'
 
-const req = new XMLHttpRequest()
-req.open('GET', 'https://dummyjson.com/products')
-req.send()
+/**
+ * Фича ES6, которая спасает от колбеков. 
+ * Promises - это контейнер для значения, которое вернется в будущем
+ * Не нужно использовать callback(чейнинги или async/await)
+ * Не нужно использовать события
+ * 3 жизненных состояния 
+ * - Pending (сразу после создания, т.к. север не может ответить сразу)
+ * - Settled (сервер ответил и промис переход в состояния ниже)
+ * - Fullfilled(выполнен) либо Rejected(отклонен)
+ */
 
-
-// Попытка сделать последовательную цепочку запросов приводит к плохо читаемому коду
-// Callback Hall
-req.addEventListener('load', function () {
-  const { products } = JSON.parse(this.responseText)
-  const sum = products.reduce((acc, product) => {
-    return acc += product.price
-  }, 0)
-  console.log(sum / products.length)
-  console.log(products)
-
-  const req = new XMLHttpRequest()
-  req.open('GET', 'https://dummyjson.com/products/' + products[0].id)
-  req.send()
-
-  req.addEventListener('load', function () {
-    const product = JSON.parse(this.responseText)
-    console.log(product)
-
-    const req = new XMLHttpRequest()
-    req.open('GET', 'https://dummyjson.com/products/' + products[1].id)
-    req.send()
-
-    req.addEventListener('load', function () {
-      const product = JSON.parse(this.responseText)
-      console.log(product)
-    })
-  })
-})
-
+const res = fetch('https://dummyjson.com/products/1')
+console.log(res)
