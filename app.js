@@ -1,19 +1,27 @@
 'use strict'
 
-fetch('https://dummyjson.com/productsss')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(`Is error ${res.status}`)
-    }
-    return res.json()
-  })
+/**
+ * Сделать функцию, которая принимает строку и текст ошибки и
+ * возвращает уже Promise c JSON из тела запроса
+ */
+
+function getData(url, message, method = 'GET') {
+  return fetch(url, { method })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(message)
+      }
+      return res.json()
+    })
+}
+
+getData('https://dummyjson.com/products', 'Can not get products')
   .then(({ products }) => {
     console.log(products);
-    return fetch('https://dummyjson.com/product/' + products[0].id)
+    return getData('https://dummyjson.com/product/' + products[0].id, 'Can not get products')
   })
-  .then(res => res.json())
   .then(data => console.log(data))
   .catch(err => {
     const el = document.querySelector('.filter')
-    el.innerHTML = err
+    el.innerHTML = err.message
   })
