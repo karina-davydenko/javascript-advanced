@@ -1,15 +1,27 @@
 'use strict'
 
-const API = 'https://dummyjson.com/products/'
-fetch(API)
-  .then(res => res.json())
-  .then(({ products }) => {
-    console.log(products);
-    return fetch(API + products[0].id)
-  })
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(err => console.log(err))
-  .finally(() => {
-    console.log('Finally')
-  })
+/**
+ * Сделать запрос на 'https://dummyjson.com/products/categories',
+ * и отобразить <select> выбора категорий.
+ */
+
+function createSelect(array) {
+  const form = document.querySelector('.category-select')
+  const select = document.createElement('select')
+  select.id = 'category-select'
+  select.innerHTML = `
+    ${array.map(el => `<option value="${el}">${el}</option>`)}
+  `
+  form.append(select)
+}
+
+function getCategories() {
+  fetch('https://dummyjson.com/products/categories')
+    .then(res => res.json())
+    .then(data => {
+      createSelect(data)
+    })
+}
+
+
+getCategories()
