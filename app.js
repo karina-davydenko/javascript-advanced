@@ -1,27 +1,29 @@
 'use strict'
 
-/**
- * Сделать функцию, которая принимает строку и текст ошибки и
- * возвращает уже Promise c JSON из тела запроса
- */
+const prom = new Promise((resolve, reject) => {
+  if (new Date() < new Date('01/01/2024')) {
+    reject(new Error('Error'))
+  }
+  resolve('Success')
+})
 
-function getData(url, message, method = 'GET') {
-  return fetch(url, { method })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(message)
-      }
-      return res.json()
-    })
+prom
+  .then(console.log)
+  .catch(console.log)
+
+function timeout(sec) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, sec * 1000)
+  })
 }
 
-getData('https://dummyjson.com/products', 'Can not get products')
-  .then(({ products }) => {
-    console.log(products);
-    return getData('https://dummyjson.com/product/' + products[0].id, 'Can not get products')
+timeout(1)
+  .then(() => {
+    console.log(1)
+    return timeout(1)
   })
-  .then(data => console.log(data))
-  .catch(err => {
-    const el = document.querySelector('.filter')
-    el.innerHTML = err.message
+  .then(() => {
+    console.log(2)
   })
