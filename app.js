@@ -1,23 +1,34 @@
 'use strict'
-/**
- * Сделать функцию myFetch?которая выполняет внутри XMLHttpRequest
- */
 
-function myFetch(URL, method = 'GET') {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open(method, URL)
-    xhr.responseType = 'json';
-    xhr.send()
-    xhr.onload = function () {
-      if (xhr.status != 200) {
-        reject(new Error(`Ошибка ${this.status}: ${this.statusText}`))
-      }
-      resolve(xhr.response)
-    };
-  })
+// function getProgects() {
+//   fetch('https://dummyjson.com/products')
+//     .then(res => res.json())
+//     .then(console.log);
+// }
+
+// getProgects()
+// console.log('end')
+
+async function getProgects() {
+  try {
+    const productsRes = await fetch('https://dummyjson.com/products')
+    if (!productsRes.ok) {
+      throw new Error(productsRes.status + productsRes.statusText)
+    }
+    const { products } = await productsRes.json();
+    console.log(products)
+
+    const productRes = await fetch('https://dummyjson.com/products/' + products[0].id)
+    const product = await productRes.json();
+    console.log(product)
+  } catch (err) {
+    console.log(err)
+  } finally {
+    console.log('Finished')
+  }
+
 }
 
-myFetch('https://dummyjson.com/products')
-  .then(console.log)
-  .catch(console.error) 
+getProgects()
+console.log('end')
+
