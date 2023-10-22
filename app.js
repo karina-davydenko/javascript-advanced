@@ -1,29 +1,15 @@
 'use strict'
+Promise.resolve('Instans').then(console.log)
 
-const prom = new Promise((resolve, reject) => {
-  if (new Date() < new Date('01/01/2024')) {
-    reject(new Error('Error'))
-  }
-  resolve('Success')
+const prom = new Promise((resolve) => {
+  console.log('after Timer')
+  // setTimeout(() => {
+  //   resolve('Timer')
+
+  // }, 1000)
+  resolve('Timer')
 })
 
-prom
-  .then(console.log)
-  .catch(console.log)
+prom.then(console.log)
+Promise.reject(new Error('Error')).catch(console.error)
 
-function timeout(sec) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, sec * 1000)
-  })
-}
-
-timeout(1)
-  .then(() => {
-    console.log(1)
-    return timeout(1)
-  })
-  .then(() => {
-    console.log(2)
-  })
