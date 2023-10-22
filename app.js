@@ -1,15 +1,23 @@
 'use strict'
-Promise.resolve('Instans').then(console.log)
+/**
+ * Сделать функцию myFetch?которая выполняет внутри XMLHttpRequest
+ */
 
-const prom = new Promise((resolve) => {
-  console.log('after Timer')
-  // setTimeout(() => {
-  //   resolve('Timer')
+function myFetch(URL, method = 'GET') {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open(method, URL)
+    xhr.responseType = 'json';
+    xhr.send()
+    xhr.onload = function () {
+      if (xhr.status != 200) {
+        reject(new Error(`Ошибка ${this.status}: ${this.statusText}`))
+      }
+      resolve(xhr.response)
+    };
+  })
+}
 
-  // }, 1000)
-  resolve('Timer')
-})
-
-prom.then(console.log)
-Promise.reject(new Error('Error')).catch(console.error)
-
+myFetch('https://dummyjson.com/products')
+  .then(console.log)
+  .catch(console.error) 
