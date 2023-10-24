@@ -1,37 +1,28 @@
 'use strict'
 
-class ProductRepository {
-  async getProducts() {
-    const res = await fetch('https://dummyjson.com/products')
-    const data = await res.json()
-    console.log(data)
-  }
+async function allProducts() {
+  const res = await fetch('https://dummyjson.com/products')
+  return res.json()
 }
 
-const repo = new ProductRepository()
-// repo.getProducts()
-
-const asyncArrow = async () => {
-  try {
-    const res = await fetch('https://dummyjson.com/products')
-    const data = await res.json()
-    return data
-  } catch (err) {
-    console.log(err)
-    throw err
-  }
+async function getProduct(id) {
+  const res = await fetch('https://dummyjson.com/products/' + id)
+  return res.json()
 }
 
+async function main() {
+  const { products } = await allProducts()
 
-(async () => {
-  console.log(1)
-  const re = await asyncArrow()
-  console.log(re)
-  console.log(2)
-})()
+  const res = await Promise.all(
+    products.map(product => getProduct(product.id))
+  )
+  console.log(res)
+  console.log(products)
+  // for (const product of products) {
+  //   const res = await getProduct(product.id)
+  // }
 
 
+}
 
-
-
-
+main()
