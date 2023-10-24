@@ -1,28 +1,37 @@
 'use strict'
-
-async function allProducts() {
-  const res = await fetch('https://dummyjson.com/products')
-  return res.json()
-}
-
 async function getProduct(id) {
   const res = await fetch('https://dummyjson.com/products/' + id)
   return res.json()
 }
 
+async function getProductError(id) {
+  const res = await fetch('https://dummyjsons.com/products/' + id)
+  return res.json()
+}
+
 async function main() {
-  const { products } = await allProducts()
+  const res1 = await Promise.all([
+    getProduct(1),
+    getProduct(2),
+  ])
+  console.log(res1)
 
-  const res = await Promise.all(
-    products.map(product => getProduct(product.id))
-  )
-  console.log(res)
-  console.log(products)
-  // for (const product of products) {
-  //   const res = await getProduct(product.id)
-  // }
+  const err1 = await Promise.all([
+    getProduct(1),
+    // getProductError(2),
+  ])
+  console.log(err1)
 
-
+  const res2 = await Promise.allSettled([
+    getProduct(1),
+    getProduct(2),
+  ])
+  console.log(res2)
+  const err2 = await Promise.allSettled([
+    getProductError(1),
+    getProduct(2),
+  ])
+  console.log(err2)
 }
 
 main()
