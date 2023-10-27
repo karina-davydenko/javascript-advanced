@@ -1,39 +1,26 @@
 'use strict'
+// Viewport - это видимая пользователю область веб-страницы,
+//  то, что может увидеть пользователь, не прибегая к прокрутке.
 
-/**
- * Сделать генератор 3х идей от скуки
- * http://www.boredapi.com/api/activity/
- * с отображением на странице
- */
+function generate(e) {
+  // в какой части страницы находится польователь
+  console.log(`X offset: ${window.pageXOffset}`)
+  console.log(`Y offset: ${window.pageYOffset}`)
+  // размер окна пользователя
+  console.log(`clientWidth: ${document.documentElement.clientWidth}`)
+  console.log(`clientHeight: ${document.documentElement.clientHeight}`)
+  // расположение определенного э-та на странице
+  console.log(e.target.getBoundingClientRect())
 
-const button = document.querySelector('.random-btn')
-const container = document.querySelector('.container-card')
+  const el = document.querySelector('.down')
+  const down = el.getBoundingClientRect()
+  console.log()
 
-async function random() {
-  const res = await fetch('http://www.boredapi.com/api/activity/')
-  const data = await res.json()
-  return data.activity
+  // скроллинг
+  window.scrollTo({
+    left: window.pageXOffset + down.x,
+    top: window.pageXOffset + down.y,
+    behavior: 'smooth'
+  })
+
 }
-
-async function getRandomEvents() {
-  const res = await Promise.all([
-    random(),
-    random(),
-    random(),
-  ])
-
-  container.innerHTML = res.map(str => {
-    return `
-      <div class="card-random-event">
-        <p>
-          ${str}
-        </p>
-      </div>
-    `
-  }).join('')
-}
-
-
-button.addEventListener('click', () => {
-  getRandomEvents()
-})
