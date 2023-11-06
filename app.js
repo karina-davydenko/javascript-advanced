@@ -1,27 +1,13 @@
 'use strict'
 
 /**
- * Динамически создать N элементов с текстом и поле для поиска.
- * При вводе в поле, выделять элементы, которые содержат введенный текст.
+  Загрузки JS-скриптов:
+  1) Без атрибутов:
+    1.1) head: --Парсинг html---Загрузка и выполнение JS---Парсинг html--
+    1.2) конец body:  --Парсинг html---Загрузка и выполнение JS--
+  2) атр. async --Парсинг html c загрузка JS---Выполнение JS---Парсинг html--
+  3) атр. defer --Парсинг html с загрузкой JS---Выполненение JS--
  */
 
-const wrapper = document.querySelector('.wrapper')
-for (let i = 1; i <= 30; i++) {
-  const el = document.createElement('div')
-  el.innerHTML = `User ${i}`
-  wrapper.append(el)
-}
 
-const listUsers = [...wrapper.children]
-const input = document.querySelector('input');
-input.addEventListener('change', function (event) {
-  const { value } = event.target
-  listUsers.forEach((user) => {
-    user.classList.remove('active')
-    if (user.innerHTML.includes(value)) {
-      user.classList.add('active')
-    }
-    return
-  })
-})
 
