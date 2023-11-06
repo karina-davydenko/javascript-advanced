@@ -1,10 +1,9 @@
 'use strict';
-import { sub, res } from './calc.js'
+import { add, sub, } from './calc.js'
 
-console.log('app')
+console.log(add(1, 3));
 
 console.log(sub(1, 3));
 
-console.log(res)
-
-console.log(1)
+const a = 1
+console.log(a)
