@@ -1,14 +1,16 @@
-'use strict';
-
-function add(f, s) {
+export function add(f, s) {
   return f + s
 }
 
-function sub(f, s) {
+export function sub(f, s) {
   return f - s
 }
 
-console.log('test')
+console.log('calc')
 
-module.exports = { add, sub }
+setTimeout(() => {
+  add = (f, s) => {
+    return f * s
+  }
+}, 5000)
 
