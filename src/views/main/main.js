@@ -7,6 +7,7 @@ import { CardList } from "../../components/cardList/card-list.js";
 export class MainView extends AbstractView {
   state = {
     list: [],
+    numFound: 0,
     loading: false,
     searchQuery: undefined,
     offset: 0,
@@ -29,8 +30,9 @@ export class MainView extends AbstractView {
     if (path === 'searchQuery') {
       this.state.loading = true;
       const data = await this.loadList(this.state.searchQuery, this.state.offset)
+      this.state.list = data.docs;
+      this.state.numFound = data.numFound;
       this.state.loading = false;
-      this.state.list = data.docs
       console.log(data)
     }
 

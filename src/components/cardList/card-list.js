@@ -1,4 +1,5 @@
-import { DivComponent } from "../../common/div-component";
+import { DivComponent } from "../../common/div-component.js";
+import { Card } from "../card/card.js";
 import './card-list.css'
 
 export class CardList extends DivComponent {
@@ -14,17 +15,10 @@ export class CardList extends DivComponent {
       return this.el
     }
     this.el.classList.add('card_list');
-    this.el.innerHTML = `
-      <h1>Найдено книг - ${this.state.list.length}</h1>
-      <div class="cards">
-       ${this.state.list.map(book => `
-        <div class="card"
-          <p>${book.title}</p>
-          <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg"/>
-        </div>
-        `).join('')}
-      </div>
-    `
+    this.el.innerHTML = `<h1>Найдено книг - ${this.state.numFound}</h1>`
+    this.state.list.forEach(book => {
+      this.el.append(new Card(this.appState, book).render())
+    })
     return this.el
   }
 
