@@ -61,5 +61,5 @@
 }
 
 .button__active {
-  background: var(--white);
+  background: white;
 }

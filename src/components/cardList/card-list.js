@@ -15,9 +15,11 @@ export class CardList extends DivComponent {
       return this.el
     }
     this.el.classList.add('card_list');
-    this.el.innerHTML = `<h1>Найдено книг - ${this.state.numFound}</h1>`
+    const cardGrid = document.createElement('div');
+    cardGrid.classList.add('card_grid');
+    this.el.append(cardGrid);
     this.state.list.forEach(book => {
-      this.el.append(new Card(this.appState, book).render())
+      cardGrid.append(new Card(this.appState, book).render())
     })
     return this.el
   }

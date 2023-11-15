@@ -32,6 +32,15 @@ export class Card extends DivComponent {
         </div>
       </div>
     `
+    this.el.querySelector('button').addEventListener('click', () => {
+      if (existInFavorites) {
+        this.appState.favorites = this.appState.favorites.filter(
+          b => b.key !== this.cardState.key
+        )
+        return
+      }
+      this.appState.favorites.push(this.cardState)
+    })
 
     return this.el
   }
