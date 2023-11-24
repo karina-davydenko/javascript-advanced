@@ -1,5 +1,7 @@
 import { FavoritesView } from "./views/favorites/favorites.js";
 import { MainView } from "./views/main/main.js";
+import '../static/global.css';
+
 
 class App {
   routes = [

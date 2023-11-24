@@ -1,5 +1,7 @@
 import { DivComponent } from '../../common/div-component.js';
 import './card.css';
+import iconFavorites from "../../../static/favorites.svg"
+import iconFavoritesWhite from "../../../static/favorites-white.svg"
 
 export class Card extends DivComponent {
   constructor(appState, cardState) {
@@ -27,7 +29,7 @@ export class Card extends DivComponent {
         </div>
         <div class="card__footer">
           <button  class="button_add ${existInFavorites ? 'button__active' : ''}">
-            ${existInFavorites ? '<img src="/static/favorites.svg" />' : '<img src="/static/favorites-white.svg" />'}
+            <img src="${existInFavorites ? iconFavorites : iconFavoritesWhite}" />
           </button>
         </div>
       </div>

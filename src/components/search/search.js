@@ -1,5 +1,7 @@
-import { DivComponent } from "../../common/div-component";
+import { DivComponent } from "../../common/div-component.js";
 import './search.css'
+import iconSearch from "../../../static/search.svg"
+import iconSearchWhite from "../../../static/search-white.svg"
 
 export class Search extends DivComponent {
   constructor(state) {
@@ -16,7 +18,7 @@ export class Search extends DivComponent {
     this.el.classList.add('search');
     this.el.innerHTML = `
       <div class="search__wraper">
-        <img src="/static/search.svg" alt="Иконка поиска"/>
+        <img src="${iconSearch}" alt="Иконка поиска"/>
         <input
           type="text" 
           class="search__input" 
@@ -24,7 +26,7 @@ export class Search extends DivComponent {
           placeholder="Найти книгу или автора...."/>
       </div>
       <button aria-label="Искать">
-        <img src="/static/search-white.svg" alt="Иконка поиска" />
+        <img src="${iconSearchWhite}" alt="Иконка поиска" />
       </button>
     `;
     this.el.querySelector('button').addEventListener('click', this.search.bind(this));
