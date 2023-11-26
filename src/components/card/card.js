@@ -2,6 +2,7 @@ import { DivComponent } from '../../common/div-component.js';
 import './card.css';
 import iconFavorites from "../../../static/favorites.svg"
 import iconFavoritesWhite from "../../../static/favorites-white.svg"
+import iconNotImg from "../../../static/not-img.svg"
 
 export class Card extends DivComponent {
   constructor(appState, cardState) {
@@ -15,7 +16,7 @@ export class Card extends DivComponent {
     const existInFavorites = this.appState.favorites.find(b => b.key === this.cardState.key);
     this.el.innerHTML = `
       <div class="card__image">
-        <img src=${this.cardState.poster.previewUrl} alt="Обложка книги"/>
+        <img src=${this.cardState.poster ? this.cardState.poster.previewUrl : iconNotImg} alt="Обложка книги"/>
       </div>
       <div class="card__info">
         <div class="card__tag">
