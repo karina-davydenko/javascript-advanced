@@ -18,8 +18,8 @@ export class CardList extends DivComponent {
     const cardGrid = document.createElement('div');
     cardGrid.classList.add('card_grid');
     this.el.append(cardGrid);
-    this.state.list.forEach(book => {
-      cardGrid.append(new Card(this.appState, book).render())
+    this.state.list.forEach(item => {
+      cardGrid.append(new Card(this.appState, item).render())
     })
     return this.el
   }

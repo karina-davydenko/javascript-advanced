@@ -15,17 +15,20 @@ export class Card extends DivComponent {
     const existInFavorites = this.appState.favorites.find(b => b.key === this.cardState.key);
     this.el.innerHTML = `
       <div class="card__image">
-        <img src="https://covers.openlibrary.org/b/olid/${this.cardState.cover_edition_key}-M.jpg" alt="Обложка книги"/>
+        <img src=${this.cardState.poster.previewUrl} alt="Обложка книги"/>
       </div>
       <div class="card__info">
         <div class="card__tag">
-          ${this.cardState.subject ? this.cardState.subject[0] : 'Жанр не задан'}
+          ${this.cardState.genres ? this.cardState.genres[0]['name'] : 'Жанр не задан'}
         </div>
         <div class="card__name">
-          ${this.cardState.title}
+          ${this.cardState.name}
         </div>
-        <div class="card__author">
-          ${this.cardState.author_name ? this.cardState.author_name[0] : 'Автор не задан'}
+        <div class="card__description">
+          ${this.cardState.shortDescription}
+        </div>
+        <div class="card__year">
+          ${this.cardState.year} год
         </div>
         <div class="card__footer">
           <button  class="button_add ${existInFavorites ? 'button__active' : ''}">

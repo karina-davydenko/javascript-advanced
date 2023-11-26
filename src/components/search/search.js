@@ -23,7 +23,7 @@ export class Search extends DivComponent {
           type="text" 
           class="search__input" 
           value="${this.state.searchQuery ? this.state.searchQuery : ''}"
-          placeholder="Найти книгу или автора...."/>
+          placeholder="Найти фильм или сериал...."/>
       </div>
       <button aria-label="Искать">
         <img src="${iconSearchWhite}" alt="Иконка поиска" />

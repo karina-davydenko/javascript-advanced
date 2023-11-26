@@ -19,7 +19,7 @@ export class Header extends DivComponent {
       <div class="menu">
         <a class="menu__item" href="#">
           <img src="${iconSearch}" alt="Поиск иконка"/>
-          Поиск книг
+          Поиск
         </a>
         <a class="menu__item" href="#favorites">
           <img src="${iconFavorites}" alt="Избранное иконка"/>

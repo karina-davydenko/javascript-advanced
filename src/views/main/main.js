@@ -10,7 +10,7 @@ export class MainView extends AbstractView {
     numFound: 0,
     loading: false,
     searchQuery: undefined,
-    offset: 0,
+    offset: 1,
   }
   constructor(appState) {
     super();
@@ -35,8 +35,9 @@ export class MainView extends AbstractView {
     if (path === 'searchQuery') {
       this.state.loading = true;
       const data = await this.loadList(this.state.searchQuery, this.state.offset)
+      console.log(data);
       this.state.list = data.docs;
-      this.state.numFound = data.numFound;
+      this.state.numFound = data.total;
       this.state.loading = false;
     }
 
@@ -47,13 +48,18 @@ export class MainView extends AbstractView {
   }
 
   async loadList(q, offset) {
-    const res = await fetch(`http://openlibrary.org/search.json?q=${q}&offset=${offset}`)
+    const res = await fetch(`https://api.kinopoisk.dev/v1.4/movie/search?page=${offset}&limit=10&query=${q}`, {
+      headers: {
+        'accept': 'application/json',
+        'X-API-KEY': '12497KZ-M7CM7P4-KCG4K05-9ARBZKZ'
+      }
+    });
     return res.json()
   }
 
   render() {
     const main = document.createElement('main');
-    main.innerHTML = `<h1>Найдено книг - ${this.state.numFound}</h1>`
+    main.innerHTML = `<h1>Найдено - ${this.state.numFound}</h1>`
     main.append(new Search(this.state).render());
     main.append(new CardList(this.appState, this.state).render())
     this.app.innerHTML = '';
