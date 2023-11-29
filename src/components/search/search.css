@@ -5,16 +5,18 @@
   margin-bottom: 30px;
 }
 
-.search__wrapper {
+.search__wraper {
   position: relative;
   flex: 1;
   display: flex;
 }
 
-.search__wrapper img {
+.search__wraper img {
   position: absolute;
   left: 10px;
-  top: 12px;
+  top: 16px;
+  height: 24px;
+  width: 24px;
 }
 
 .search__input {
@@ -38,4 +40,5 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 12px;
 }

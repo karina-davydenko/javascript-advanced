@@ -3,6 +3,7 @@ import onChange from "on-change";
 import { Header } from "../../components/header/header..js";
 import { Search } from "../../components/search/search.js";
 import { CardList } from "../../components/cardList/card-list.js";
+import { Pagination } from "../../components/paginaton/pagination.js";
 
 export class MainView extends AbstractView {
   state = {
@@ -10,7 +11,8 @@ export class MainView extends AbstractView {
     numFound: 0,
     loading: false,
     searchQuery: undefined,
-    offset: 1,
+    page: 1,
+    countPages: 0,
   }
   constructor(appState) {
     super();
@@ -34,10 +36,22 @@ export class MainView extends AbstractView {
   async stateHook(path) {
     if (path === 'searchQuery') {
       this.state.loading = true;
-      const data = await this.loadList(this.state.searchQuery, this.state.offset)
+      this.state.page = 1
+      const data = await this.loadList(this.state.searchQuery, this.state.page)
       console.log(data);
       this.state.list = data.docs;
       this.state.numFound = data.total;
+      this.state.countPages = data.pages;
+      this.state.loading = false;
+    }
+
+    if (path === 'page') {
+      this.state.loading = true;
+      const data = await this.loadList(this.state.searchQuery, this.state.page)
+      console.log(data);
+      this.state.list = data.docs;
+      this.state.numFound = data.total;
+      this.state.countPages = data.pages;
       this.state.loading = false;
     }
 
@@ -47,8 +61,8 @@ export class MainView extends AbstractView {
 
   }
 
-  async loadList(q, offset) {
-    const res = await fetch(`https://api.kinopoisk.dev/v1.4/movie/search?page=${offset}&limit=10&query=${q}`, {
+  async loadList(q, page) {
+    const res = await fetch(`https://api.kinopoisk.dev/v1.4/movie/search?page=${page}&limit=9&query=${q}`, {
       headers: {
         'accept': 'application/json',
         'X-API-KEY': '12497KZ-M7CM7P4-KCG4K05-9ARBZKZ'
@@ -62,6 +76,9 @@ export class MainView extends AbstractView {
     main.innerHTML = `<h1>Найдено - ${this.state.numFound}</h1>`
     main.append(new Search(this.state).render());
     main.append(new CardList(this.appState, this.state).render())
+    if (this.state.searchQuery && !this.state.loading) {
+      main.append(new Pagination(this.state).render());
+    }
     this.app.innerHTML = '';
     this.app.append(main);
     this.renderHeader();
