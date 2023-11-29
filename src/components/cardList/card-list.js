@@ -15,17 +15,13 @@ export class CardList extends DivComponent {
       this.el.innerHTML = `<div class="card_list__loader">Загрузка...</div>`;
       return this.el
     }
-    if (this.state.searchQuery) {
-
-      this.el.classList.add('card_list');
-      const cardGrid = document.createElement('div');
-      cardGrid.classList.add('card_grid');
-      this.el.append(cardGrid);
-      this.state.list.forEach(item => {
-        cardGrid.append(new Card(this.appState, item).render())
-      })
-
-    }
+    this.el.classList.add('card_list');
+    const cardGrid = document.createElement('div');
+    cardGrid.classList.add('card_grid');
+    this.el.append(cardGrid);
+    this.state.list.forEach(item => {
+      cardGrid.append(new Card(this.appState, item).render())
+    })
     return this.el
   }
 

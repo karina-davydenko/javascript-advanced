@@ -27,6 +27,7 @@ export class FavoritesView extends AbstractView {
     const main = document.createElement('main');
     main.innerHTML = '<h1>Избранное</h1>';
     main.append(new CardList(this.appState, this.favorites).render())
+    console.log(this.favorites)
     this.app.innerHTML = '';
     this.app.append(main);
     this.renderHeader()
